@@ -33,13 +33,18 @@ from testlib import iam_test
 # ---------------------------
 test_list =[
     {
-        'Role_Name': 'CCoE-Admin-Role',
+        'Role_Name': 'Tenant-Admin-Role',
         'Test_Items': [
             {
-                'Title': 'Check that Permissions Boundary cannot be deleted',
-                'pointa': iam_test.hoge,
-                'return': '200'
-            }
+                'Title': 'Check that Delete Hight Authority PB Policy fails from admin role.',
+                'func_pt': iam_test.chek_deny_pb_hight_authority_from_role,
+            },
+            {
+                'Title': 'Check that Delete Hight Authority PB Policy fails from admin user.',
+                'func_pt': iam_test.chek_deny_pb_hight_authority_from_user,
+            },
+
+            
         ]
     }
 ]
@@ -111,18 +116,32 @@ def main():
 
     # Test
     for target in test_list:
+
+        print('<<<<<<<< Target Role => {} >>>>>>>>>>>>>\n'.format(target['Role_Name']))
+
         # Assume Role
         session = assume_role(
             profile   = args.profile,
             role_name = target['Role_Name']
         )
         if args.debug:
+                print('Session----------------\n')
                 json.dump(
                     session.client('sts').get_caller_identity(),
                     sys.stdout,
                     ensure_ascii=False,
                     indent=2
                 )
+                print('-----------------------\n')
+
+        #Test
+        count = 1
+        for item in target['Test_Items']:
+            ret = item['func_pt'](session = session, debug = args.debug)
+
+            print( '#{:2d} {:100s} :ret = {:s}'.format(count, item['Title'],ret) )
+
+
 
 
 if __name__ == "__main__":

@@ -18,11 +18,71 @@
 #  limitations under the License.
 #
 from __future__ import print_function
+from http.client import FAILED_DEPENDENCY
 
 import sys
-import argparse
+import json
+import botocore
 import boto3
 
+Tenant_AdminRoleName       = 'Tenant-Admin-Role'
+Tenant_AdminUserName       = 'Tenant-Admin-User'
+PB_HighAuthorityPolicyName = 'PB-HighAuthority-Policy'
 
-def hoge():
-    print( "saaaaa" ) 
+#Return code
+ret_failed = 'Failed'
+ret_OK ='OK'
+ret_NG = 'NG'
+
+def dump_json( message ):
+    json.dump(
+        message,
+        sys.stdout,
+        ensure_ascii=False,
+        indent=2
+    )
+    print ('\n')
+
+def chek_deny_pb_hight_authority_from_role(session, debug):
+    try:
+        result = ret_failed
+        ret = None
+        ret = session.client('iam').delete_role_permissions_boundary(
+            RoleName = Tenant_AdminRoleName
+        )
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        #このテストはAccessDeniedにならないといけない
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return(result)
+
+def chek_deny_pb_hight_authority_from_user(session, debug):
+    try:
+        result = ret_failed
+        ret = None
+        ret = session.client('iam').delete_user_permissions_boundary(
+            UserName = Tenant_AdminUserName
+        )
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        #このテストはAccessDeniedにならないといけない
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return(result)

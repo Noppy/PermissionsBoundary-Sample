@@ -22,6 +22,8 @@ resource "aws_iam_role" "tenant-admin-role" {
   managed_policy_arns = [
     "arn:aws:iam::aws:policy/AdministratorAccess"
   ]
+
+  permissions_boundary = aws_iam_policy.high_authority_pb_policy.arn
 }
 
 #-----------------
@@ -44,6 +46,8 @@ resource "aws_iam_user" "tenant-admin-user" {
 
   path          = "/"
   force_destroy = true
+
+  permissions_boundary = aws_iam_policy.high_authority_pb_policy.arn
 }
 
 resource "aws_iam_group_membership" "add-tenant-admin-user-to-tenant-admin-group" {
@@ -79,6 +83,8 @@ resource "aws_iam_role" "tenant-general-role" {
   managed_policy_arns = [
     "arn:aws:iam::aws:policy/AdministratorAccess"
   ]
+
+  permissions_boundary = aws_iam_policy.general_pb_policy.arn
 }
 
 
@@ -102,6 +108,8 @@ resource "aws_iam_user" "tenant-general-user" {
 
   path          = "/"
   force_destroy = true
+
+  permissions_boundary = aws_iam_policy.general_pb_policy.arn
 }
 
 resource "aws_iam_group_membership" "add-tenant-general-user-to-tenant-general-group" {
