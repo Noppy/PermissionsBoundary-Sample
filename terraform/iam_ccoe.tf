@@ -29,7 +29,7 @@ resource "aws_iam_role" "ccoe-admin-role" {
 # IAM Group
 resource "aws_iam_group" "ccoe-admin-group" {
   name = "CCoE-Admin-Group"
-  path = "/ccoe-admin/"
+  path = "/"
 }
 
 resource "aws_iam_group_policy_attachment" "attach-policy-to-ccoe-admin-group" {

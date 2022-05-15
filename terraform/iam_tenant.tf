@@ -30,7 +30,7 @@ resource "aws_iam_role" "tenant-admin-role" {
 # IAM Group
 resource "aws_iam_group" "tenant-admin-group" {
   name = "Tenant-Admin-Group"
-  path = "/tenant-admin/"
+  path = "/"
 }
 
 resource "aws_iam_group_policy_attachment" "attach-policy-to-tenant-admin-group" {
@@ -77,7 +77,7 @@ resource "aws_iam_role" "tenant-general-role" {
   })
 
   managed_policy_arns = [
-    "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+    "arn:aws:iam::aws:policy/AdministratorAccess"
   ]
 }
 
@@ -88,12 +88,12 @@ resource "aws_iam_role" "tenant-general-role" {
 # IAM Group
 resource "aws_iam_group" "tenant-general-group" {
   name = "Tenant-General-Group"
-  path = "/tenant-general/"
+  path = "/"
 }
 
 resource "aws_iam_group_policy_attachment" "attach-policy-to-tenant-general-group" {
   group      = aws_iam_group.tenant-general-group.name
-  policy_arn = "arn:aws:iam::aws:policy/job-function/ViewOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 # IAM User
