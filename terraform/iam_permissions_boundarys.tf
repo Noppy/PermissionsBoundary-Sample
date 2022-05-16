@@ -17,7 +17,7 @@ resource "aws_iam_policy" "general_pb_policy" {
   description = "Permissions Boundary for Tenant's General IAM Users/Roles"
 
   policy = templatefile(
-    "iam_pb_high_authority_policy.tpl",
+    "iam_pb_general_policy copy.tpl",
     {
       account_id = "${data.aws_caller_identity.current.account_id}"
     }

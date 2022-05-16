@@ -34,7 +34,7 @@ from testlib import iam_test_admin
 test_list =[
     {
         'Role_Name': 'Tenant-Admin-Role',
-        'Test_Target': True,
+        'Test_Target': False,
         'TestItems': [
             iam_test_common.chek_deny_pb_high_authority_from_role,
             iam_test_common.chek_deny_pb_high_authority_from_user,
