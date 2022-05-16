@@ -25,7 +25,8 @@ import json
 import xxlimited
 import boto3
 
-from testlib import iam_test
+from testlib import iam_test_common
+from testlib import iam_test_admin
 
 
 # ---------------------------
@@ -34,17 +35,24 @@ from testlib import iam_test
 test_list =[
     {
         'Role_Name': 'Tenant-Admin-Role',
-        'Test_Items': [
-            {
-                'Title': 'Check that Delete Hight Authority PB Policy fails from admin role.',
-                'func_pt': iam_test.chek_deny_pb_hight_authority_from_role,
-            },
-            {
-                'Title': 'Check that Delete Hight Authority PB Policy fails from admin user.',
-                'func_pt': iam_test.chek_deny_pb_hight_authority_from_user,
-            },
-
-            
+        'TestItems': [
+            #iam_test_common.chek_deny_pb_hight_authority_from_role,
+            #iam_test_common.chek_deny_pb_hight_authority_from_user,
+            #iam_test_common.chek_deny_pb_general_from_role,
+            #iam_test_common.chek_deny_pb_general_from_user,
+            #iam_test_common.chek_deny_delete_pb_high_authority_policy,
+            #iam_test_common.chek_deny_delete_pb_general_policy,
+            #iam_test_common.chek_deny_create_pb_high_authority_policy_version,
+            #iam_test_common.chek_deny_create_pb_general_policy_version,
+            #iam_test_common.chek_deny_delete_pb_high_authority_policy_version,
+            #iam_test_common.chek_deny_delete_pb_general_policy_version,
+            #iam_test_admin.chek_deny_create_role_without_pb,
+            #iam_test_admin.chek_deny_create_user_without_pb,
+            #iam_test_admin.chek_deny_change_pb_of_general_role,
+            #iam_test_admin.chek_deny_change_pb_of_general_user,
+            iam_test_admin.chek_create_role_with_pb,
+            iam_test_admin.chek_update_role_with_pb,
+            iam_test_admin.chek_update_description_role_with_pb
         ]
     }
 ]
@@ -136,10 +144,10 @@ def main():
 
         #Test
         count = 1
-        for item in target['Test_Items']:
-            ret = item['func_pt'](session = session, debug = args.debug)
-
-            print( '#{:2d} {:100s} :ret = {:s}'.format(count, item['Title'],ret) )
+        for item in target['TestItems']:
+            ret = item(session = session, debug = args.debug)
+            print( '#{:2d} {:100s} :ret = {:s}'.format(count, ret['Title'],ret['Result']) )
+            count += 1
 
 
 
