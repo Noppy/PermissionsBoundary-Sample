@@ -23,6 +23,7 @@ from http.client import FAILED_DEPENDENCY
 
 import sys
 import json
+import time
 import botocore
 import boto3
 
@@ -350,16 +351,6 @@ def chek_deny_delete_pb_general_policy_version(session, debug):
         return( { 'Title':  Title, 'Result': result } )
 
 
-
-
-
-
-
-
-## CCoE_AdminRoleName         = 'CCoE-Admin-Role'
-## CCoE_AdminUserName         = 'CCoE-Admin-User' 
-
-
 #----------------------------------
 # Update/Delete CCoE Role
 #----------------------------------
@@ -392,7 +383,7 @@ def check_delete_ccoe_role(session, debug):
 # update Role-1
 def chek_update_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that updating a ccoe role fails(update_role) fails.'
+        Title  = 'No4.Verify that updating a ccoe role fails(update_role) fails.'
         result = ret_failed
         ret = None
 
@@ -423,7 +414,7 @@ def chek_update_ccoe_role(session, debug):
 # update Role-2
 def chek_update_description_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that updating ccoe role description fails.'
+        Title  = 'No4.Verify that updating ccoe role description fails.'
         result = ret_failed
         ret = None
 
@@ -452,7 +443,7 @@ def chek_update_description_ccoe_role(session, debug):
 # update assumerole
 def chek_update_assumerole_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that updating assume role at ccoe role fails.'
+        Title  = 'No4.Verify that updating assume role at ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -493,7 +484,7 @@ def chek_update_assumerole_ccoe_role(session, debug):
 # add managed policy
 def check_add_managed_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that adding a managed policy to ccoe role fails.'
+        Title  = 'No4.Verify that adding a managed policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -519,7 +510,7 @@ def check_add_managed_policy_to_ccoe_role(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a managed policy to ccoe role failes.'
+        Title  = 'No4.Verify that deleting a managed policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -545,7 +536,7 @@ def check_delete_managed_policy_to_ccoe_role(session, debug):
 # add inline policy
 def check_add_inline_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that adding a inline policy to ccoe role failes.'
+        Title  = 'No4.Verify that adding a inline policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -583,13 +574,450 @@ def check_add_inline_policy_to_ccoe_role(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a inline policy to ccoe role failes.'
+        Title  = 'No4.Verify that deleting a inline policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
         ret = session.client('iam').delete_role_policy(
             RoleName   = CCoE_AdminRoleName,
             PolicyName = 'HogeHoge-DenyAll-Policy'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+def chek_change_pb_of_ccoe_role(session, debug):
+    try:
+        Title  = 'No4.Verify that attaching the general PB to ccoe role fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').put_role_permissions_boundary(
+            RoleName = CCoE_AdminRoleName,
+            PermissionsBoundary = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+#----------------------------------
+# Update/Delete CCoE User
+#----------------------------------
+# delete ccoe user
+def chek_delete_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that deleting ccoe user.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_user(
+            UserName = CCoE_AdminUserName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# attach pb to ccoe user
+def chek_attach_pb_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that adding  PB to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').put_user_permissions_boundary(
+            UserName = CCoE_AdminUserName,
+            PermissionsBoundary = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# add managed policy
+def check_add_managed_policy_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that adding a managed policy to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').attach_user_policy(
+            UserName  = CCoE_AdminUserName,
+            PolicyArn = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete managed policy
+def check_delete_managed_policy_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that deleting a managed policy to ccoe role successes.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').detach_user_policy(
+            UserName  = CCoE_AdminUserName,
+            PolicyArn = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+# add inline policy
+def check_add_inline_policy_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that adding a inline policy to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        policy = {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Deny",
+                    "Action": "*",
+                    "Resource": "*"
+                }
+            ]
+        }
+
+        ret = session.client('iam').put_user_policy(
+            UserName   = CCoE_AdminUserName,
+            PolicyName = 'HogeHoge-DenyAll-Policy' ,
+            PolicyDocument = json.dumps(policy)
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete inline policy
+def check_delete_inline_policy_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that deleting a inline policy to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_user_policy(
+            UserName   = CCoE_AdminUserName,
+            PolicyName = 'HogeHoge-DenyAll-Policy'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+# create login password
+def check_create_login_passwd_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that create login password to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').create_login_profile(
+            UserName = CCoE_AdminUserName,
+            Password ='Aiafbeua7523@'
+        )
+        time.sleep(60)
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# update login password
+def check_update_login_passwd_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that update login password to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').update_login_profile(
+            UserName = CCoE_AdminUserName,
+            Password ='Kbadfbeia73nba@'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+
+# delete login password
+def check_delete_login_passwd_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that delete login password to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_login_profile(
+            UserName = CCoE_AdminUserName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# create access key
+def check_create_access_key_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that create a access key to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').create_access_key(
+            UserName = CCoE_AdminUserName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# update access key
+def check_update_access_key_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that update a access key to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').update_access_key(
+            UserName    = CCoE_AdminUserName,
+            AccessKeyId = 'AKIAZEGETO7AO4JJVCWQ',
+            Status      = 'Inactive'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete access key
+def check_delete_access_key_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that delete a access key to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_access_key(
+            UserName    = CCoE_AdminUserName,
+            AccessKeyId = 'AKIAZEGETO7AO4JJVCWQ'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# enable mfa device
+def check_enable_mfa_device_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that enable MFA device and associates it with ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').enable_mfa_device(
+            UserName     = CCoE_AdminUserName,
+            SerialNumber = 'arn:aws:iam::627477542848:mfa/aahahaa',
+            AuthenticationCode1  = '999999',
+            AuthenticationCode2  = '000000'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# resync mfa device
+def check_enable_mfa_device_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that resync MFA device that is associated with ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').resync_mfa_device(
+            UserName     = CCoE_AdminUserName,
+            SerialNumber = 'arn:aws:iam::627477542848:mfa/aahahaa',
+            AuthenticationCode1  = '999999',
+            AuthenticationCode2  = '000000'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+# deactivate mfa device
+def check_enable_mfa_device_to_ccoe_user(session, debug):
+    try:
+        Title  = 'No4.Verify that deactivate MFA device that is associated with ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').deactivate_mfa_device(
+            UserName     = CCoE_AdminUserName,
+            SerialNumber = 'arn:aws:iam::627477542848:mfa/aahahaa'
         )
 
     except botocore.exceptions.ClientError as e:

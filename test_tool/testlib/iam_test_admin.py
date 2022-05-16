@@ -519,8 +519,3 @@ def chek_delete_user_with_pb(session, debug):
         if debug:
             dump_json( message = message )
         return( { 'Title':  Title, 'Result': result } )
-
-
-
-#ユーザ作成 Done
-#ロール削除 Done

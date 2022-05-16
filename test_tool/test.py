@@ -68,7 +68,24 @@ test_list =[
             #iam_test_common.check_add_managed_policy_to_ccoe_role,
             #iam_test_common.check_delete_managed_policy_to_ccoe_role,
             #iam_test_common.check_add_inline_policy_to_ccoe_role,
-            #iam_test_common.check_delete_inline_policy_to_ccoe_role
+            #iam_test_common.check_delete_inline_policy_to_ccoe_role,
+            #iam_test_common.chek_change_pb_of_ccoe_role,
+            #iam_test_common.chek_delete_ccoe_user,
+            #iam_test_common.chek_attach_pb_to_ccoe_user,
+            #iam_test_common.check_add_managed_policy_to_ccoe_user,
+            #iam_test_common.check_delete_managed_policy_to_ccoe_user,
+            #iam_test_common.check_add_inline_policy_to_ccoe_user,
+            #iam_test_common.check_delete_inline_policy_to_ccoe_user,
+            #iam_test_common.check_create_login_passwd_to_ccoe_user,
+            #iam_test_common.check_update_login_passwd_to_ccoe_user,
+            #iam_test_common.check_delete_login_passwd_to_ccoe_user,
+            #iam_test_common.check_create_access_key_to_ccoe_user,
+            #iam_test_common.check_update_access_key_to_ccoe_user,
+            #iam_test_common.check_delete_access_key_to_ccoe_user,
+            #iam_test_common.check_enable_mfa_device_to_ccoe_user,
+            #iam_test_common.check_enable_mfa_device_to_ccoe_user,
+            #iam_test_common.check_enable_mfa_device_to_ccoe_user
+
         ]
     }
 ]
