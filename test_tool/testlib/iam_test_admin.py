@@ -314,6 +314,60 @@ def chek_update_assumerole_role_with_pb(session, debug):
         return( { 'Title':  Title, 'Result': result } )
 
 
+# add managed policy
+def check_add_managed_policy_to_role(session, debug):
+    try:
+        Title  = 'No3.Verify that adding a managed policy to a role successes.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').attach_role_policy(
+            RoleName  = 'Tenant-Dummy-Role',
+            PolicyArn = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete managed policy
+def check_delete_managed_policy_to_role(session, debug):
+    try:
+        Title  = 'No3.Verify that deleting a managed policy to a role successes.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').detach_role_policy(
+            RoleName  = 'Tenant-Dummy-Role',
+            PolicyArn = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
 
 
 
@@ -353,9 +407,9 @@ def check_delete_role(session, debug):
 
 #ロール作成 Done
 #ロール設定変更 Done
-#信頼関係ポリシー変更
-#ロールマネージドポリシー追加
-#ロールマネージドポリシー削除
+#信頼関係ポリシー変更 Done
+#ロールマネージドポリシー追加 Done
+#ロールマネージドポリシー削除 Done
 #ロールインラインポリシー追加
 #ロールインラインポリシー削除
 #ロール削除 Done

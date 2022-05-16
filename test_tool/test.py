@@ -54,10 +54,11 @@ test_list =[
             iam_test_admin.chek_update_role_with_pb,
             iam_test_admin.chek_update_description_role_with_pb,
             iam_test_admin.chek_update_assumerole_role_with_pb,
+            iam_test_admin.check_add_managed_policy_to_role,
+            iam_test_admin.check_delete_managed_policy_to_role,
 
 
 
-            
             iam_test_admin.check_delete_role
         ]
     }
