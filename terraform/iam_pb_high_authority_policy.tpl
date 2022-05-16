@@ -83,7 +83,16 @@
                 "iam:AttachUserPolicy",
                 "iam:DeleteUserPolicy",
                 "iam:DetachUserPolicy",
-                "iam:PutUserPolicy"
+                "iam:PutUserPolicy",
+                "iam:UpdateLoginProfile",
+                "iam:CreateLoginProfile",
+                "iam:DeleteLoginProfile",
+                "iam:DeleteAccessKey",
+                "iam:UpdateAccessKey",
+                "iam:CreateAccessKey",
+                "iam:DeactivateMFADevice",
+                "iam:EnableMFADevice",
+                "iam:ResyncMFADevice"
             ],
             "Resource": [
                 "arn:aws:iam::${account_id}:user/CCoE-Admin-User"
