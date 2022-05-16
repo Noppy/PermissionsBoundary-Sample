@@ -34,6 +34,7 @@ Tenant_GeneralUserName     = 'Tenant-General-User'
 
 CCoE_AdminRoleName         = 'CCoE-Admin-Role'
 CCoE_AdminUserName         = 'CCoE-Admin-User' 
+CCoE_AdminGroupName        = 'CCoE-Admin-Group'
 
 PB_HighAuthorityPolicyName = 'PB-HighAuthority-Policy'
 PB_GeneralPolicyName       = 'PB-General-Policy'
@@ -1018,6 +1019,113 @@ def check_enable_mfa_device_to_ccoe_user(session, debug):
         ret = session.client('iam').deactivate_mfa_device(
             UserName     = CCoE_AdminUserName,
             SerialNumber = 'arn:aws:iam::627477542848:mfa/aahahaa'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+#----------------------------------
+# Update/Delete CCoE group
+#----------------------------------
+# delete ccoe group
+def chek_delete_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that deleting ccoe group.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_group(
+            GroupName = CCoE_AdminGroupName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# update ccoe group
+def chek_update_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that updating ccoe group.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').update_group(
+            GroupName    = CCoE_AdminGroupName,
+            NewGroupName = 'HogeHogeGroup'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# add user to ccoe group
+def chek_add_user_to_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that adding a user to ccoe group.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').add_user_to_group(
+            GroupName  = CCoE_AdminGroupName,
+            UserName   = Tenant_AdminRoleName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# remove user from ccoe group
+def chek_remove_user_from_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that removing a user from ccoe group.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').remove_user_from_group(
+            GroupName  = CCoE_AdminGroupName,
+            UserName   = Tenant_AdminRoleName
         )
 
     except botocore.exceptions.ClientError as e:

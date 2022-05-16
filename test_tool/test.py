@@ -84,7 +84,11 @@ test_list =[
             #iam_test_common.check_delete_access_key_to_ccoe_user,
             #iam_test_common.check_enable_mfa_device_to_ccoe_user,
             #iam_test_common.check_enable_mfa_device_to_ccoe_user,
-            #iam_test_common.check_enable_mfa_device_to_ccoe_user
+            #iam_test_common.check_enable_mfa_device_to_ccoe_user,
+            #iam_test_common.chek_delete_ccoe_group,
+            #iam_test_common.chek_update_ccoe_group,
+            #iam_test_common.chek_add_user_to_ccoe_group,
+            #iam_test_common.chek_remove_user_from_ccoe_group
 
         ]
     }
