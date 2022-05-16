@@ -368,14 +368,71 @@ def check_delete_managed_policy_to_role(session, debug):
             dump_json( message = message )
         return( { 'Title':  Title, 'Result': result } )
 
+# add inline policy
+def check_add_inline_policy_to_role(session, debug):
+    try:
+        Title  = 'No3.Verify that adding a inline policy to a role successes.'
+        result = ret_failed
+        ret = None
 
+        policy = {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Deny",
+                    "Action": "*",
+                    "Resource": "*"
+                }
+            ]
+        }
 
+        ret = session.client('iam').put_role_policy(
+            RoleName   = 'Tenant-Dummy-Role',
+            PolicyName = 'HogeHoge-DenyAll-Policy' ,
+            PolicyDocument = json.dumps(policy)
+        )
 
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
 
+# delete inline policy
+def check_delete_inline_policy_to_role(session, debug):
+    try:
+        Title  = 'No3.Verify that deleting a inline policy to a role successes.'
+        result = ret_failed
+        ret = None
 
+        ret = session.client('iam').delete_role_policy(
+            RoleName   = 'Tenant-Dummy-Role',
+            PolicyName = 'HogeHoge-DenyAll-Policy'
+        )
 
-
-
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
 
 # delete Role
 def check_delete_role(session, debug):
@@ -404,12 +461,66 @@ def check_delete_role(session, debug):
         return( { 'Title':  Title, 'Result': result } )
 
 
+#----------------------------------
+# Create/Delete User with PB
+#----------------------------------
+# Create user
+def chek_create_user_with_pb(session, debug):
+    try:
+        Title  = 'No3.Verify that creating a user with the General PB successes.'
+        result = ret_failed
+        ret = None
 
-#ロール作成 Done
-#ロール設定変更 Done
-#信頼関係ポリシー変更 Done
-#ロールマネージドポリシー追加 Done
-#ロールマネージドポリシー削除 Done
-#ロールインラインポリシー追加
-#ロールインラインポリシー削除
+        ident = session.client('sts').get_caller_identity()
+        accountid = ident['Account']
+
+        ret = session.client('iam').create_user(
+            UserName = 'Tenant-Dummy-User',
+            PermissionsBoundary = 'arn:aws:iam::{}:policy/{}'.format( accountid,PB_GeneralPolicyName )
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete user
+def chek_delete_user_with_pb(session, debug):
+    try:
+        Title  = 'No3.Verify that deleting a user with the General PB successes.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_user(
+            UserName = 'Tenant-Dummy-User'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+
+#ユーザ作成 Done
 #ロール削除 Done

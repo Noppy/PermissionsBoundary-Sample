@@ -50,16 +50,17 @@ test_list =[
             #iam_test_admin.chek_deny_create_user_without_pb,
             #iam_test_admin.chek_deny_change_pb_of_general_role,
             #iam_test_admin.chek_deny_change_pb_of_general_user,
-            iam_test_admin.chek_create_role_with_pb,
-            iam_test_admin.chek_update_role_with_pb,
-            iam_test_admin.chek_update_description_role_with_pb,
-            iam_test_admin.chek_update_assumerole_role_with_pb,
-            iam_test_admin.check_add_managed_policy_to_role,
-            iam_test_admin.check_delete_managed_policy_to_role,
-
-
-
-            iam_test_admin.check_delete_role
+            #iam_test_admin.chek_create_role_with_pb,
+            #iam_test_admin.chek_update_role_with_pb,
+            #iam_test_admin.chek_update_description_role_with_pb,
+            #iam_test_admin.chek_update_assumerole_role_with_pb,
+            #iam_test_admin.check_add_managed_policy_to_role,
+            #iam_test_admin.check_delete_managed_policy_to_role,
+            #iam_test_admin.check_add_inline_policy_to_role,
+            #iam_test_admin.check_delete_inline_policy_to_role,
+            #iam_test_admin.check_delete_role,
+            #iam_test_admin.chek_create_user_with_pb,
+            #iam_test_admin.chek_delete_user_with_pb
         ]
     }
 ]
