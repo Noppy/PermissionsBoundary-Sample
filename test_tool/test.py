@@ -52,7 +52,13 @@ test_list =[
             #iam_test_admin.chek_deny_change_pb_of_general_user,
             iam_test_admin.chek_create_role_with_pb,
             iam_test_admin.chek_update_role_with_pb,
-            iam_test_admin.chek_update_description_role_with_pb
+            iam_test_admin.chek_update_description_role_with_pb,
+            iam_test_admin.chek_update_assumerole_role_with_pb,
+
+
+
+            
+            iam_test_admin.check_delete_role
         ]
     }
 ]

@@ -272,6 +272,82 @@ def chek_update_description_role_with_pb(session, debug):
             dump_json( message = message )
         return( { 'Title':  Title, 'Result': result } )
 
+# update assumerole
+def chek_update_assumerole_role_with_pb(session, debug):
+    try:
+        Title  = 'No3.Verify that updating assume role at the role with the General PB successes.'
+        result = ret_failed
+        ret = None
+
+        ident = session.client('sts').get_caller_identity()
+        accountid = ident['Account']
+
+        assume = {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Allow",
+                    "Action": [ "sts:AssumeRole" ],
+                    "Principal": { "Service": [ "ec2.amazonaws.com"] }
+                }
+            ]
+        }
+
+        ret = session.client('iam').update_assume_role_policy(
+            RoleName = 'Tenant-Dummy-Role',
+            PolicyDocument = json.dumps(assume)
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+
+
+
+
+
+
+
+
+
+# delete Role
+def check_delete_role(session, debug):
+    try:
+        Title  = 'No3.Verify that deleting a role successes.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_role(
+            RoleName = 'Tenant-Dummy-Role'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        #このテストはロールの作成が成功しないといけない
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
 
 
 
@@ -282,4 +358,4 @@ def chek_update_description_role_with_pb(session, debug):
 #ロールマネージドポリシー削除
 #ロールインラインポリシー追加
 #ロールインラインポリシー削除
-#ロール削除
+#ロール削除 Done
