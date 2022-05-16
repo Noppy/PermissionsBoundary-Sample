@@ -26,6 +26,7 @@ import boto3
 
 from testlib import iam_test_common
 from testlib import iam_test_admin
+from testlib import iam_test_general
 
 
 # ---------------------------
@@ -34,7 +35,7 @@ from testlib import iam_test_admin
 test_list =[
     {
         'Role_Name': 'Tenant-Admin-Role',
-        'Test_Target': False,
+        'Test_Target': True,
         'TestItems': [
             iam_test_common.chek_deny_pb_high_authority_from_role,
             iam_test_common.chek_deny_pb_high_authority_from_user,
@@ -109,21 +110,21 @@ test_list =[
             iam_test_common.chek_deny_create_pb_general_policy_version,
             iam_test_common.chek_deny_delete_pb_high_authority_policy_version,
             iam_test_common.chek_deny_delete_pb_general_policy_version,
-            #iam_test_admin.chek_deny_create_role_without_pb,
-            #iam_test_admin.chek_deny_create_user_without_pb,
-            #iam_test_admin.chek_deny_change_pb_of_general_role,
-            #iam_test_admin.chek_deny_change_pb_of_general_user,
-            #iam_test_admin.chek_create_role_with_pb,
-            #iam_test_admin.chek_update_role_with_pb,
-            #iam_test_admin.chek_update_description_role_with_pb,
-            #iam_test_admin.chek_update_assumerole_role_with_pb,
-            #iam_test_admin.check_add_managed_policy_to_role,
-            #iam_test_admin.check_delete_managed_policy_to_role,
-            #iam_test_admin.check_add_inline_policy_to_role,
-            #iam_test_admin.check_delete_inline_policy_to_role,
-            #iam_test_admin.check_delete_role,
-            #iam_test_admin.chek_create_user_with_pb,
-            #iam_test_admin.chek_delete_user_with_pb,
+            iam_test_general.chek_deny_create_role_without_pb,
+            iam_test_general.chek_deny_create_user_without_pb,
+            iam_test_general.chek_deny_change_pb_of_general_role,
+            iam_test_general.chek_deny_change_pb_of_general_user,
+            iam_test_general.chek_create_role_with_pb,
+            iam_test_general.chek_update_role_with_pb,
+            iam_test_general.chek_update_description_role_with_pb,
+            iam_test_general.chek_update_assumerole_role_with_pb,
+            iam_test_general.check_add_managed_policy_to_role,
+            iam_test_general.check_delete_managed_policy_to_role,
+            iam_test_general.check_add_inline_policy_to_role,
+            iam_test_general.check_delete_inline_policy_to_role,
+            iam_test_general.check_delete_role,
+            iam_test_general.chek_create_user_with_pb,
+            iam_test_general.chek_delete_user_with_pb,
             iam_test_common.check_delete_ccoe_role,
             iam_test_common.chek_update_ccoe_role,
             iam_test_common.chek_update_description_ccoe_role,
