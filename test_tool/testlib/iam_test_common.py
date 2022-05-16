@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#  _do_FileCopy.py
 #  ======
 #  Copyright (C) 2022 n.fujita
 #
@@ -56,7 +55,7 @@ def dump_json( message ):
 #----------------------------------
 # Delete Tenant Admin Role/User
 #----------------------------------
-def chek_deny_pb_High_authority_from_role(session, debug):
+def chek_deny_pb_high_authority_from_role(session, debug):
     try:
         Title  = 'No1.Verify that Delete High Authority PB Policy fails from the admin role.'
         result = ret_failed
@@ -80,7 +79,7 @@ def chek_deny_pb_High_authority_from_role(session, debug):
             dump_json( message = message )
         return( { 'Title':  Title, 'Result': result } )
 
-def chek_deny_pb_High_authority_from_user(session, debug):
+def chek_deny_pb_high_authority_from_user(session, debug):
     try:
         Title  = 'No1.Verify that Delete High Authority PB Policy fails from the admin user.'
         result = ret_failed
@@ -705,7 +704,7 @@ def check_add_managed_policy_to_ccoe_user(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a managed policy to ccoe role successes.'
+        Title  = 'No4.Verify that deleting a managed policy to ccoe user successes.'
         result = ret_failed
         ret = None
 
@@ -1126,6 +1125,123 @@ def chek_remove_user_from_ccoe_group(session, debug):
         ret = session.client('iam').remove_user_from_group(
             GroupName  = CCoE_AdminGroupName,
             UserName   = Tenant_AdminRoleName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# add managed policy
+def check_add_managed_policy_to_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that adding a managed policy to ccoe group fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').attach_group_policy(
+            GroupName  = CCoE_AdminGroupName,
+            PolicyArn = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete managed policy
+def check_delete_managed_policy_to_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that deleting a managed policy to ccoe group successes.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').detach_group_policy(
+            GroupName  = CCoE_AdminGroupName,
+            PolicyArn = 'arn:aws:iam::aws:policy/AdministratorAccess'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+# add inline policy
+def check_add_inline_policy_to_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that adding a inline policy to ccoe group fails.'
+        result = ret_failed
+        ret = None
+
+        policy = {
+            "Version": "2012-10-17",
+            "Statement": [
+                {
+                    "Effect": "Deny",
+                    "Action": "*",
+                    "Resource": "*"
+                }
+            ]
+        }
+
+        ret = session.client('iam').put_group_policy(
+            GroupName  = CCoE_AdminGroupName,
+            PolicyName = 'HogeHoge-DenyAll-Policy',
+            PolicyDocument = json.dumps(policy)
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_OK
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete inline policy
+def check_delete_inline_policy_to_ccoe_group(session, debug):
+    try:
+        Title  = 'No4.Verify that deleting a inline policy to ccoe user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_group_policy(
+            GroupName  = CCoE_AdminGroupName,
+            PolicyName = 'HogeHoge-DenyAll-Policy'
         )
 
     except botocore.exceptions.ClientError as e:

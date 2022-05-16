@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-#  _do_FileCopy.py
 #  ======
 #  Copyright (C) 2022 n.fujita
 #
