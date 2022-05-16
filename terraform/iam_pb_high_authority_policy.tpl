@@ -83,8 +83,7 @@
                 "iam:AttachUserPolicy",
                 "iam:DeleteUserPolicy",
                 "iam:DetachUserPolicy",
-                "iam:PutUserPolicy",
-                "iam:UpdateAssumeRolePolicy"
+                "iam:PutUserPolicy"
             ],
             "Resource": [
                 "arn:aws:iam::${account_id}:user/CCoE-Admin-User"
