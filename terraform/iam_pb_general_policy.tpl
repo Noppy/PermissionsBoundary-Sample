@@ -83,7 +83,10 @@
                 "iam:CreateAccessKey",
                 "iam:DeactivateMFADevice",
                 "iam:EnableMFADevice",
-                "iam:ResyncMFADevice"
+                "iam:ResyncMFADevice",
+                "iam:UploadSSHPublicKey",
+                "iam:DeleteSSHPublicKey",
+                "iam:UpdateSSHPublicKey"
             ],
             "Resource": [
                 "arn:aws:iam::${account_id}:user/CCoE-Admin-User"
