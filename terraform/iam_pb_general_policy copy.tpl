@@ -17,7 +17,6 @@
                 "iam:Put*",
                 "iam:Remove*",
                 "iam:Reset*",
-                "iam:Resync*",
                 "iam:Set*",
                 "iam:Tag*",
                 "iam:Untag*",

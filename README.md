@@ -66,3 +66,7 @@ pwd
 # Command to output the execution result details of AWS APIs
 ./test_tool/test.py --debug --profile pbtest
 ```
+- MFA tests is manual at Tenant-General-User.
+  - Create and associate MFA Device
+  - resync MFA
+  - delete MFA

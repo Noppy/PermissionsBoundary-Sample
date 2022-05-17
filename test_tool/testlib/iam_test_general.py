@@ -169,7 +169,7 @@ def chek_deny_change_pb_of_general_user(session, debug):
 # Create Role
 def chek_create_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Validate that creating a role with the General PB successes.'
+        Title  = 'No3.Validate that creating a role with the General PB fails.'
         result = ret_failed
         ret = None
 
@@ -209,7 +209,7 @@ def chek_create_role_with_pb(session, debug):
 # update Role-1
 def chek_update_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Validate that updating a role with the General PB successes(MAX Session).'
+        Title  = 'No3.Validate that updating a role with the General PB fails(MAX Session).'
         result = ret_failed
         ret = None
 
@@ -240,7 +240,7 @@ def chek_update_role_with_pb(session, debug):
 # update Role-2
 def chek_update_description_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Validate that updating a role description with the General PB successes.'
+        Title  = 'No3.Validate that updating a role description with the General PB fails.'
         result = ret_failed
         ret = None
 
@@ -269,7 +269,7 @@ def chek_update_description_role_with_pb(session, debug):
 # update assumerole
 def chek_update_assumerole_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Validate that updating assume role at the role with the General PB successes.'
+        Title  = 'No3.Validate that updating assume role at the role with the General PB fails.'
         result = ret_failed
         ret = None
 
@@ -310,7 +310,7 @@ def chek_update_assumerole_role_with_pb(session, debug):
 # add managed policy
 def check_add_managed_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Validate that adding a managed policy to a role successes.'
+        Title  = 'No3.Validate that adding a managed policy to a role fails.'
         result = ret_failed
         ret = None
 
@@ -337,7 +337,7 @@ def check_add_managed_policy_to_role(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Validate that deleting a managed policy to a role successes.'
+        Title  = 'No3.Validate that deleting a managed policy to a role fails.'
         result = ret_failed
         ret = None
 
@@ -353,7 +353,6 @@ def check_delete_managed_policy_to_role(session, debug):
         else:
             result = ret_failed
     else:
-        #このテストはロールの作成が成功しないといけない
         message = ret
         result = ret_NG
     finally:
@@ -364,7 +363,7 @@ def check_delete_managed_policy_to_role(session, debug):
 # add inline policy
 def check_add_inline_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Validate that adding a inline policy to a role successes.'
+        Title  = 'No3.Validate that adding a inline policy to a role fails.'
         result = ret_failed
         ret = None
 
@@ -402,7 +401,7 @@ def check_add_inline_policy_to_role(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Validate that deleting a inline policy to a role successes.'
+        Title  = 'No3.Validate that deleting a inline policy to a role fails.'
         result = ret_failed
         ret = None
 
@@ -428,7 +427,7 @@ def check_delete_inline_policy_to_role(session, debug):
 # delete Role
 def check_delete_role(session, debug):
     try:
-        Title  = 'No3.Validate that deleting a role successes.'
+        Title  = 'No3.Validate that deleting a role fails.'
         result = ret_failed
         ret = None
 
@@ -457,7 +456,7 @@ def check_delete_role(session, debug):
 # Create user
 def chek_create_user_with_pb(session, debug):
     try:
-        Title  = 'No3.Validate that creating a user with the General PB successes.'
+        Title  = 'No3.Validate that creating a user with the General PB fails.'
         result = ret_failed
         ret = None
 
@@ -486,7 +485,7 @@ def chek_create_user_with_pb(session, debug):
 # delete user
 def chek_delete_user_with_pb(session, debug):
     try:
-        Title  = 'No3.Validate that deleting a user with the General PB successes.'
+        Title  = 'No3.Validate that deleting a user with the General PB fails.'
         result = ret_failed
         ret = None
 
@@ -516,7 +515,7 @@ def chek_delete_user_with_pb(session, debug):
 # create login password
 def check_create_login_passwd_to_tenant_general_user(session, debug):
     try:
-        Title  = 'No4.Validate that create login password to Tenant general user fails.'
+        Title  = 'No4.Validate that create login password to Tenant general user successes.'
         result = ret_failed
         ret = None
 
@@ -543,7 +542,7 @@ def check_create_login_passwd_to_tenant_general_user(session, debug):
 # update login password
 def check_update_login_passwd_to_tenant_general_user(session, debug):
     try:
-        Title  = 'No4.Validate that update login password to Tenant general user fails.'
+        Title  = 'No4.Validate that update login password to Tenant general user successes.'
         result = ret_failed
         ret = None
 
@@ -569,7 +568,7 @@ def check_update_login_passwd_to_tenant_general_user(session, debug):
 # delete login password
 def check_delete_login_passwd_to_tenant_general_user(session, debug):
     try:
-        Title  = 'No4.Validate that delete login password to Tenant general user fails.'
+        Title  = 'No4.Validate that delete login password to Tenant general user successes.'
         result = ret_failed
         ret = None
 
@@ -600,7 +599,7 @@ ACCESS_KEY_ID = ''
 # create access key
 def check_create_access_key_to_tenant_general_user(session, debug):
     try:
-        Title  = 'No4.Validate that create a access key to Tenant general user fails.'
+        Title  = 'No4.Validate that create a access key to Tenant general user successes.'
         result = ret_failed
         ret = None
         global ACCESS_KEY_ID
@@ -632,7 +631,7 @@ def hoge(session, debug):
 # update access key
 def check_update_access_key_to_tenant_general_user(session, debug):
     try:
-        Title  = 'No4.Validate that update a access key to Tenant general user fails.'
+        Title  = 'No4.Validate that update a access key to Tenant general user successes.'
         result = ret_failed
         ret = None
 
@@ -659,7 +658,7 @@ def check_update_access_key_to_tenant_general_user(session, debug):
 # delete access key
 def check_delete_access_key_to_tenant_general_user(session, debug):
     try:
-        Title  = 'No4.Validate that delete a access key to Tenant general user fails.'
+        Title  = 'No4.Validate that delete a access key to Tenant general user successes.'
         result = ret_failed
         ret = None
 
