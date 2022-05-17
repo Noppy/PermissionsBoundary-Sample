@@ -53,7 +53,7 @@ def dump_json( message ):
 #----------------------------------
 def chek_deny_create_role_without_pb(session, debug):
     try:
-        Title  = 'No3.Verify that Create role fails.'
+        Title  = 'No3.Validate that Create role fails.'
         result = ret_failed
         ret = None
 
@@ -91,7 +91,7 @@ def chek_deny_create_role_without_pb(session, debug):
 
 def chek_deny_create_user_without_pb(session, debug):
     try:
-        Title  = 'No3.Verify that Create user fails.'
+        Title  = 'No3.Validate that Create user fails.'
         result = ret_failed
         ret = None
 
@@ -118,7 +118,7 @@ def chek_deny_create_user_without_pb(session, debug):
 #----------------------------------
 def chek_deny_change_pb_of_general_role(session, debug):
     try:
-        Title  = 'No3.Verify that changing the general PB of the General Role to another policy fails.'
+        Title  = 'No3.Validate that changing the general PB of the General Role to another policy fails.'
         result = ret_failed
         ret = None
 
@@ -143,7 +143,7 @@ def chek_deny_change_pb_of_general_role(session, debug):
 
 def chek_deny_change_pb_of_general_user(session, debug):
     try:
-        Title  = 'No3.Verify that changing the general PB of the General user to another policy fails.'
+        Title  = 'No3.Validate that changing the general PB of the General user to another policy fails.'
         result = ret_failed
         ret = None
 
@@ -172,7 +172,7 @@ def chek_deny_change_pb_of_general_user(session, debug):
 # Create Role
 def chek_create_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that creating a role with the General PB successes.'
+        Title  = 'No3.Validate that creating a role with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -213,7 +213,7 @@ def chek_create_role_with_pb(session, debug):
 # update Role-1
 def chek_update_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that updating a role with the General PB successes(MAX Session).'
+        Title  = 'No3.Validate that updating a role with the General PB successes(MAX Session).'
         result = ret_failed
         ret = None
 
@@ -244,7 +244,7 @@ def chek_update_role_with_pb(session, debug):
 # update Role-2
 def chek_update_description_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that updating a role description with the General PB successes.'
+        Title  = 'No3.Validate that updating a role description with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -274,7 +274,7 @@ def chek_update_description_role_with_pb(session, debug):
 # update assumerole
 def chek_update_assumerole_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that updating assume role at the role with the General PB successes.'
+        Title  = 'No3.Validate that updating assume role at the role with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -316,7 +316,7 @@ def chek_update_assumerole_role_with_pb(session, debug):
 # add managed policy
 def check_add_managed_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that adding a managed policy to a role successes.'
+        Title  = 'No3.Validate that adding a managed policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -343,7 +343,7 @@ def check_add_managed_policy_to_role(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a managed policy to a role successes.'
+        Title  = 'No3.Validate that deleting a managed policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -370,7 +370,7 @@ def check_delete_managed_policy_to_role(session, debug):
 # add inline policy
 def check_add_inline_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that adding a inline policy to a role successes.'
+        Title  = 'No3.Validate that adding a inline policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -409,7 +409,7 @@ def check_add_inline_policy_to_role(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a inline policy to a role successes.'
+        Title  = 'No3.Validate that deleting a inline policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -436,7 +436,7 @@ def check_delete_inline_policy_to_role(session, debug):
 # delete Role
 def check_delete_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a role successes.'
+        Title  = 'No3.Validate that deleting a role successes.'
         result = ret_failed
         ret = None
 
@@ -466,7 +466,7 @@ def check_delete_role(session, debug):
 # Create user
 def chek_create_user_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that creating a user with the General PB successes.'
+        Title  = 'No3.Validate that creating a user with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -496,7 +496,7 @@ def chek_create_user_with_pb(session, debug):
 # delete user
 def chek_delete_user_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a user with the General PB successes.'
+        Title  = 'No3.Validate that deleting a user with the General PB successes.'
         result = ret_failed
         ret = None
 

@@ -21,6 +21,7 @@ from http.client import FAILED_DEPENDENCY
 
 import sys
 import json
+import time
 import botocore
 import boto3
 
@@ -53,7 +54,7 @@ def dump_json( message ):
 #----------------------------------
 def chek_deny_create_role_without_pb(session, debug):
     try:
-        Title  = 'No3.Verify that Create role fails.'
+        Title  = 'No3.Validate that Create role fails.'
         result = ret_failed
         ret = None
 
@@ -90,7 +91,7 @@ def chek_deny_create_role_without_pb(session, debug):
 
 def chek_deny_create_user_without_pb(session, debug):
     try:
-        Title  = 'No3.Verify that Create user fails.'
+        Title  = 'No3.Validate that Create user fails.'
         result = ret_failed
         ret = None
 
@@ -116,7 +117,7 @@ def chek_deny_create_user_without_pb(session, debug):
 #----------------------------------
 def chek_deny_change_pb_of_general_role(session, debug):
     try:
-        Title  = 'No3.Verify that changing the general PB of the General Role to another policy fails.'
+        Title  = 'No3.Validate that changing the general PB of the General Role to another policy fails.'
         result = ret_failed
         ret = None
 
@@ -140,7 +141,7 @@ def chek_deny_change_pb_of_general_role(session, debug):
 
 def chek_deny_change_pb_of_general_user(session, debug):
     try:
-        Title  = 'No3.Verify that changing the general PB of the General user to another policy fails.'
+        Title  = 'No3.Validate that changing the general PB of the General user to another policy fails.'
         result = ret_failed
         ret = None
 
@@ -168,7 +169,7 @@ def chek_deny_change_pb_of_general_user(session, debug):
 # Create Role
 def chek_create_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that creating a role with the General PB successes.'
+        Title  = 'No3.Validate that creating a role with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -208,7 +209,7 @@ def chek_create_role_with_pb(session, debug):
 # update Role-1
 def chek_update_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that updating a role with the General PB successes(MAX Session).'
+        Title  = 'No3.Validate that updating a role with the General PB successes(MAX Session).'
         result = ret_failed
         ret = None
 
@@ -239,7 +240,7 @@ def chek_update_role_with_pb(session, debug):
 # update Role-2
 def chek_update_description_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that updating a role description with the General PB successes.'
+        Title  = 'No3.Validate that updating a role description with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -268,7 +269,7 @@ def chek_update_description_role_with_pb(session, debug):
 # update assumerole
 def chek_update_assumerole_role_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that updating assume role at the role with the General PB successes.'
+        Title  = 'No3.Validate that updating assume role at the role with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -309,7 +310,7 @@ def chek_update_assumerole_role_with_pb(session, debug):
 # add managed policy
 def check_add_managed_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that adding a managed policy to a role successes.'
+        Title  = 'No3.Validate that adding a managed policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -336,7 +337,7 @@ def check_add_managed_policy_to_role(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a managed policy to a role successes.'
+        Title  = 'No3.Validate that deleting a managed policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -363,7 +364,7 @@ def check_delete_managed_policy_to_role(session, debug):
 # add inline policy
 def check_add_inline_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that adding a inline policy to a role successes.'
+        Title  = 'No3.Validate that adding a inline policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -401,7 +402,7 @@ def check_add_inline_policy_to_role(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a inline policy to a role successes.'
+        Title  = 'No3.Validate that deleting a inline policy to a role successes.'
         result = ret_failed
         ret = None
 
@@ -427,7 +428,7 @@ def check_delete_inline_policy_to_role(session, debug):
 # delete Role
 def check_delete_role(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a role successes.'
+        Title  = 'No3.Validate that deleting a role successes.'
         result = ret_failed
         ret = None
 
@@ -456,7 +457,7 @@ def check_delete_role(session, debug):
 # Create user
 def chek_create_user_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that creating a user with the General PB successes.'
+        Title  = 'No3.Validate that creating a user with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -485,7 +486,7 @@ def chek_create_user_with_pb(session, debug):
 # delete user
 def chek_delete_user_with_pb(session, debug):
     try:
-        Title  = 'No3.Verify that deleting a user with the General PB successes.'
+        Title  = 'No3.Validate that deleting a user with the General PB successes.'
         result = ret_failed
         ret = None
 
@@ -503,6 +504,179 @@ def chek_delete_user_with_pb(session, debug):
         #このテストはロールの作成が成功しないといけない
         message = ret
         result = ret_NG
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+#----------------------------------
+# Create/Update/Delete login password at tenant general user.
+#----------------------------------
+# create login password
+def check_create_login_passwd_to_tenant_general_user(session, debug):
+    try:
+        Title  = 'No4.Validate that create login password to Tenant general user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').create_login_profile(
+            UserName = Tenant_GeneralUserName,
+            Password ='Aiafbeua7523@'
+        )
+        time.sleep(60)
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# update login password
+def check_update_login_passwd_to_tenant_general_user(session, debug):
+    try:
+        Title  = 'No4.Validate that update login password to Tenant general user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').update_login_profile(
+            UserName = Tenant_GeneralUserName,
+            Password ='Kbadfbeia73nba@'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete login password
+def check_delete_login_passwd_to_tenant_general_user(session, debug):
+    try:
+        Title  = 'No4.Validate that delete login password to Tenant general user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_login_profile(
+            UserName = Tenant_GeneralUserName
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+
+
+#----------------------------------
+# Create/Update/Delete access key at tenant general user.
+#----------------------------------
+ACCESS_KEY_ID = ''
+# create access key
+def check_create_access_key_to_tenant_general_user(session, debug):
+    try:
+        Title  = 'No4.Validate that create a access key to Tenant general user fails.'
+        result = ret_failed
+        ret = None
+        global ACCESS_KEY_ID
+
+        ret = session.client('iam').create_access_key(
+            UserName = Tenant_GeneralUserName
+        )
+        ACCESS_KEY_ID = ret['AccessKey']['AccessKeyId']
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+def hoge(session, debug):
+    print("access key = {}".format(ACCESS_KEY_ID))
+    return( { 'Title':  'hoge', 'Result': ret_OK } )
+
+
+# update access key
+def check_update_access_key_to_tenant_general_user(session, debug):
+    try:
+        Title  = 'No4.Validate that update a access key to Tenant general user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').update_access_key(
+            UserName    = Tenant_GeneralUserName,
+            AccessKeyId = ACCESS_KEY_ID,
+            Status      = 'Inactive'
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_OK
+    finally:
+        if debug:
+            dump_json( message = message )
+        return( { 'Title':  Title, 'Result': result } )
+
+# delete access key
+def check_delete_access_key_to_tenant_general_user(session, debug):
+    try:
+        Title  = 'No4.Validate that delete a access key to Tenant general user fails.'
+        result = ret_failed
+        ret = None
+
+        ret = session.client('iam').delete_access_key(
+            UserName    = Tenant_GeneralUserName,
+            AccessKeyId = ACCESS_KEY_ID
+        )
+
+    except botocore.exceptions.ClientError as e:
+        message = e.response
+        if e.response['Error']['Code'] == 'AccessDenied':
+            result = ret_NG
+        else:
+            result = ret_failed
+    else:
+        message = ret
+        result = ret_OK
     finally:
         if debug:
             dump_json( message = message )

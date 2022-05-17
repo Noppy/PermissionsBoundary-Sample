@@ -125,6 +125,12 @@ test_list =[
             iam_test_general.check_delete_role,
             iam_test_general.chek_create_user_with_pb,
             iam_test_general.chek_delete_user_with_pb,
+            iam_test_general.check_create_login_passwd_to_tenant_general_user,
+            iam_test_general.check_update_login_passwd_to_tenant_general_user,
+            iam_test_general.check_delete_login_passwd_to_tenant_general_user,
+            iam_test_general.check_create_access_key_to_tenant_general_user,
+            iam_test_general.check_update_access_key_to_tenant_general_user,
+            iam_test_general.check_delete_access_key_to_tenant_general_user,
             iam_test_common.check_delete_ccoe_role,
             iam_test_common.chek_update_ccoe_role,
             iam_test_common.chek_update_description_ccoe_role,
@@ -160,9 +166,6 @@ test_list =[
         ]
     }
 ]
-
-
-
 
 
 # ---------------------------

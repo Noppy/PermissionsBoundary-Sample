@@ -57,7 +57,7 @@ def dump_json( message ):
 #----------------------------------
 def chek_deny_pb_high_authority_from_role(session, debug):
     try:
-        Title  = 'No1.Verify that Delete High Authority PB Policy fails from the admin role.'
+        Title  = 'No1.Validate that Delete High Authority PB Policy fails from the admin role.'
         result = ret_failed
 
         ret = None
@@ -81,7 +81,7 @@ def chek_deny_pb_high_authority_from_role(session, debug):
 
 def chek_deny_pb_high_authority_from_user(session, debug):
     try:
-        Title  = 'No1.Verify that Delete High Authority PB Policy fails from the admin user.'
+        Title  = 'No1.Validate that Delete High Authority PB Policy fails from the admin user.'
         result = ret_failed
         ret = None
         ret = session.client('iam').delete_user_permissions_boundary(
@@ -109,7 +109,7 @@ def chek_deny_pb_high_authority_from_user(session, debug):
 #----------------------------------
 def chek_deny_pb_general_from_role(session, debug):
     try:
-        Title  = 'No1.Verify that Delete General PB Policy fails from the General role.'
+        Title  = 'No1.Validate that Delete General PB Policy fails from the General role.'
         result = ret_failed
         ret = None
         ret = session.client('iam').delete_role_permissions_boundary(
@@ -132,7 +132,7 @@ def chek_deny_pb_general_from_role(session, debug):
 
 def chek_deny_pb_general_from_user(session, debug):
     try:
-        Title  = 'No1.Verify that Delete General PB Policy fails from the General user.'
+        Title  = 'No1.Validate that Delete General PB Policy fails from the General user.'
         result = ret_failed
         ret = None
         ret = session.client('iam').delete_user_permissions_boundary(
@@ -158,7 +158,7 @@ def chek_deny_pb_general_from_user(session, debug):
 #----------------------------------
 def chek_deny_delete_pb_high_authority_policy(session, debug):
     try:
-        Title  = 'No2.Verify that Delete High Authority PB Policy fails.'
+        Title  = 'No2.Validate that Delete High Authority PB Policy fails.'
         result = ret_failed
         ret = None
 
@@ -185,7 +185,7 @@ def chek_deny_delete_pb_high_authority_policy(session, debug):
 
 def chek_deny_delete_pb_general_policy(session, debug):
     try:
-        Title  = 'No2.Verify that Delete General PB Policy fails.'
+        Title  = 'No2.Validate that Delete General PB Policy fails.'
         result = ret_failed
         ret = None
 
@@ -215,7 +215,7 @@ def chek_deny_delete_pb_general_policy(session, debug):
 #----------------------------------
 def chek_deny_create_pb_high_authority_policy_version(session, debug):
     try:
-        Title  = 'No2.Verify that Create High Authority PB Policy version fails.'
+        Title  = 'No2.Validate that Create High Authority PB Policy version fails.'
         result = ret_failed
         ret = None
 
@@ -254,7 +254,7 @@ def chek_deny_create_pb_high_authority_policy_version(session, debug):
 
 def chek_deny_create_pb_general_policy_version(session, debug):
     try:
-        Title  = 'No2.Verify that Create General PB Policy version fails.'
+        Title  = 'No2.Validate that Create General PB Policy version fails.'
         result = ret_failed
         ret = None
 
@@ -296,7 +296,7 @@ def chek_deny_create_pb_general_policy_version(session, debug):
 #----------------------------------
 def chek_deny_delete_pb_high_authority_policy_version(session, debug):
     try:
-        Title  = 'No2.Verify that Delete High Authority PB Policy version fails.'
+        Title  = 'No2.Validate that Delete High Authority PB Policy version fails.'
         result = ret_failed
         ret = None
 
@@ -324,7 +324,7 @@ def chek_deny_delete_pb_high_authority_policy_version(session, debug):
 
 def chek_deny_delete_pb_general_policy_version(session, debug):
     try:
-        Title  = 'No2.Verify that Delete General PB Policy version fails.'
+        Title  = 'No2.Validate that Delete General PB Policy version fails.'
         result = ret_failed
         ret = None
 
@@ -357,7 +357,7 @@ def chek_deny_delete_pb_general_policy_version(session, debug):
 # delete Role
 def check_delete_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that deleting CCoE-role fails.'
+        Title  = 'No4.Validate that deleting CCoE-role fails.'
         result = ret_failed
         ret = None
 
@@ -383,7 +383,7 @@ def check_delete_ccoe_role(session, debug):
 # update Role-1
 def chek_update_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that updating a ccoe role fails(update_role) fails.'
+        Title  = 'No4.Validate that updating a ccoe role fails(update_role) fails.'
         result = ret_failed
         ret = None
 
@@ -414,7 +414,7 @@ def chek_update_ccoe_role(session, debug):
 # update Role-2
 def chek_update_description_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that updating ccoe role description fails.'
+        Title  = 'No4.Validate that updating ccoe role description fails.'
         result = ret_failed
         ret = None
 
@@ -443,7 +443,7 @@ def chek_update_description_ccoe_role(session, debug):
 # update assumerole
 def chek_update_assumerole_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that updating assume role at ccoe role fails.'
+        Title  = 'No4.Validate that updating assume role at ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -484,7 +484,7 @@ def chek_update_assumerole_ccoe_role(session, debug):
 # add managed policy
 def check_add_managed_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that adding a managed policy to ccoe role fails.'
+        Title  = 'No4.Validate that adding a managed policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -510,7 +510,7 @@ def check_add_managed_policy_to_ccoe_role(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a managed policy to ccoe role fails.'
+        Title  = 'No4.Validate that deleting a managed policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -536,7 +536,7 @@ def check_delete_managed_policy_to_ccoe_role(session, debug):
 # add inline policy
 def check_add_inline_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that adding a inline policy to ccoe role fails.'
+        Title  = 'No4.Validate that adding a inline policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -574,7 +574,7 @@ def check_add_inline_policy_to_ccoe_role(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a inline policy to ccoe role fails.'
+        Title  = 'No4.Validate that deleting a inline policy to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -599,7 +599,7 @@ def check_delete_inline_policy_to_ccoe_role(session, debug):
 
 def chek_change_pb_of_ccoe_role(session, debug):
     try:
-        Title  = 'No4.Verify that attaching the general PB to ccoe role fails.'
+        Title  = 'No4.Validate that attaching the general PB to ccoe role fails.'
         result = ret_failed
         ret = None
 
@@ -628,7 +628,7 @@ def chek_change_pb_of_ccoe_role(session, debug):
 # delete ccoe user
 def chek_delete_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that deleting ccoe user.'
+        Title  = 'No4.Validate that deleting ccoe user.'
         result = ret_failed
         ret = None
 
@@ -653,7 +653,7 @@ def chek_delete_ccoe_user(session, debug):
 # attach pb to ccoe user
 def chek_attach_pb_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that adding  PB to ccoe user fails.'
+        Title  = 'No4.Validate that adding  PB to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -678,7 +678,7 @@ def chek_attach_pb_to_ccoe_user(session, debug):
 # add managed policy
 def check_add_managed_policy_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that adding a managed policy to ccoe user fails.'
+        Title  = 'No4.Validate that adding a managed policy to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -704,7 +704,7 @@ def check_add_managed_policy_to_ccoe_user(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a managed policy to ccoe user successes.'
+        Title  = 'No4.Validate that deleting a managed policy to ccoe user successes.'
         result = ret_failed
         ret = None
 
@@ -731,7 +731,7 @@ def check_delete_managed_policy_to_ccoe_user(session, debug):
 # add inline policy
 def check_add_inline_policy_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that adding a inline policy to ccoe user fails.'
+        Title  = 'No4.Validate that adding a inline policy to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -769,7 +769,7 @@ def check_add_inline_policy_to_ccoe_user(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a inline policy to ccoe user fails.'
+        Title  = 'No4.Validate that deleting a inline policy to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -796,7 +796,7 @@ def check_delete_inline_policy_to_ccoe_user(session, debug):
 # create login password
 def check_create_login_passwd_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that create login password to ccoe user fails.'
+        Title  = 'No4.Validate that create login password to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -823,7 +823,7 @@ def check_create_login_passwd_to_ccoe_user(session, debug):
 # update login password
 def check_update_login_passwd_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that update login password to ccoe user fails.'
+        Title  = 'No4.Validate that update login password to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -851,7 +851,7 @@ def check_update_login_passwd_to_ccoe_user(session, debug):
 # delete login password
 def check_delete_login_passwd_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that delete login password to ccoe user fails.'
+        Title  = 'No4.Validate that delete login password to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -876,7 +876,7 @@ def check_delete_login_passwd_to_ccoe_user(session, debug):
 # create access key
 def check_create_access_key_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that create a access key to ccoe user fails.'
+        Title  = 'No4.Validate that create a access key to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -901,7 +901,7 @@ def check_create_access_key_to_ccoe_user(session, debug):
 # update access key
 def check_update_access_key_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that update a access key to ccoe user fails.'
+        Title  = 'No4.Validate that update a access key to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -928,7 +928,7 @@ def check_update_access_key_to_ccoe_user(session, debug):
 # delete access key
 def check_delete_access_key_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that delete a access key to ccoe user fails.'
+        Title  = 'No4.Validate that delete a access key to ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -954,7 +954,7 @@ def check_delete_access_key_to_ccoe_user(session, debug):
 # enable mfa device
 def check_enable_mfa_device_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that enable MFA device and associates it with ccoe user fails.'
+        Title  = 'No4.Validate that enable MFA device and associates it with ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -982,7 +982,7 @@ def check_enable_mfa_device_to_ccoe_user(session, debug):
 # resync mfa device
 def check_enable_mfa_device_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that resync MFA device that is associated with ccoe user fails.'
+        Title  = 'No4.Validate that resync MFA device that is associated with ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -1011,7 +1011,7 @@ def check_enable_mfa_device_to_ccoe_user(session, debug):
 # deactivate mfa device
 def check_enable_mfa_device_to_ccoe_user(session, debug):
     try:
-        Title  = 'No4.Verify that deactivate MFA device that is associated with ccoe user fails.'
+        Title  = 'No4.Validate that deactivate MFA device that is associated with ccoe user fails.'
         result = ret_failed
         ret = None
 
@@ -1041,7 +1041,7 @@ def check_enable_mfa_device_to_ccoe_user(session, debug):
 # delete ccoe group
 def chek_delete_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that deleting ccoe group.'
+        Title  = 'No4.Validate that deleting ccoe group.'
         result = ret_failed
         ret = None
 
@@ -1066,7 +1066,7 @@ def chek_delete_ccoe_group(session, debug):
 # update ccoe group
 def chek_update_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that updating ccoe group.'
+        Title  = 'No4.Validate that updating ccoe group.'
         result = ret_failed
         ret = None
 
@@ -1092,7 +1092,7 @@ def chek_update_ccoe_group(session, debug):
 # add user to ccoe group
 def chek_add_user_to_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that adding a user to ccoe group.'
+        Title  = 'No4.Validate that adding a user to ccoe group.'
         result = ret_failed
         ret = None
 
@@ -1118,7 +1118,7 @@ def chek_add_user_to_ccoe_group(session, debug):
 # remove user from ccoe group
 def chek_remove_user_from_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that removing a user from ccoe group.'
+        Title  = 'No4.Validate that removing a user from ccoe group.'
         result = ret_failed
         ret = None
 
@@ -1144,7 +1144,7 @@ def chek_remove_user_from_ccoe_group(session, debug):
 # add managed policy
 def check_add_managed_policy_to_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that adding a managed policy to ccoe group fails.'
+        Title  = 'No4.Validate that adding a managed policy to ccoe group fails.'
         result = ret_failed
         ret = None
 
@@ -1170,7 +1170,7 @@ def check_add_managed_policy_to_ccoe_group(session, debug):
 # delete managed policy
 def check_delete_managed_policy_to_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a managed policy to ccoe group successes.'
+        Title  = 'No4.Validate that deleting a managed policy to ccoe group successes.'
         result = ret_failed
         ret = None
 
@@ -1197,7 +1197,7 @@ def check_delete_managed_policy_to_ccoe_group(session, debug):
 # add inline policy
 def check_add_inline_policy_to_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that adding a inline policy to ccoe group fails.'
+        Title  = 'No4.Validate that adding a inline policy to ccoe group fails.'
         result = ret_failed
         ret = None
 
@@ -1235,7 +1235,7 @@ def check_add_inline_policy_to_ccoe_group(session, debug):
 # delete inline policy
 def check_delete_inline_policy_to_ccoe_group(session, debug):
     try:
-        Title  = 'No4.Verify that deleting a inline policy to ccoe user fails.'
+        Title  = 'No4.Validate that deleting a inline policy to ccoe user fails.'
         result = ret_failed
         ret = None
 

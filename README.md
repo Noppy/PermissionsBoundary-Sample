@@ -50,14 +50,19 @@ terraform apply -auto-approve
 ```
 
 # Policy Test
+Test if the Permissions Boundary works as expected.
+
 ```shell
+#Go to the top directory of this git repository.
 cd ..
 pwd
 /xxx/xxx/xxx/PermissionsBoundary-Sample
 ```
 
 ```shell
+# Normal test execution command
 ./test_tool/test.py --profile pbtest
 
+# Command to output the execution result details of AWS APIs
 ./test_tool/test.py --debug --profile pbtest
 ```
